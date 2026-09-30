@@ -1,0 +1,32 @@
+package com.astrotech.transport.enums;
+
+public enum NotificationType {
+
+    BOOKING_CREATED,
+
+    BOOKING_CONFIRMED,
+
+    BOOKING_CANCELLED,
+    PAYMENT_REFUNDED,
+
+    PAYMENT_PENDING,
+
+    PAYMENT_SUCCESS,
+
+    PAYMENT_FAILED,
+
+    TRIP_DELAYED,
+
+    TRIP_CANCELLED,
+
+    TRIP_BOARDING,
+
+    TICKET_ISSUED,
+    TICKET_GENERATED,
+
+    PAYMENT_REFUND_PROCESSING,
+
+    SYSTEM,
+
+    CHAT_MESSAGE
+}

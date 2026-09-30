@@ -1,0 +1,279 @@
+spring:
+  application:
+    name: transport
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    port: ${DATABASE_PORT}
+    driver-class-name: org.postgresql.Driver
+
+
+    hikari:
+      pool-name: transportHikariPool
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 1800000
+      connection-timeout: 20000
+      leak-detection-threshold: 60000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      jdbc:
+        batch_size: 50
+      order_inserts: true
+      order_updates: true
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+    open-in-view: false
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    password: ${RABBITMQ_PASSWORD}
+    username: ${RABBITMQ_USERNAME}
+    virtual-host: ${RABBITMQ_VIRTUAL_HOST}
+    port: ${RABBITMQ_PORT}
+    addresses: ${RABBITMQ_URL}
+
+  security:
+    user:
+      name: ${SWAGGER_USERNAME}
+      password: ${SWAGGER_PASSWORD}
+      roles: SWAGGER_ADMIN
+    oauth2:
+      client:
+        registration:
+          google:
+            provider:
+              goggle:
+                issuer-uri: https://accounts.google.com
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            scope:
+              - openid
+              - email
+              - profile
+          github:
+            provider:
+              github:
+                authorization-uri: https://github.com/login/oauth/authorize
+                token-uri: https://github.com/login/oauth/access_token
+                user-info-uri: https://api.github.com/user
+                user-name-attribute: id
+            client-id: ${GITHUB_CLIENT_ID}i
+            client-secret: ${GITHUB_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            scope:
+              - user:email
+              - read:user
+
+  jwt:
+    secret: ${SECRET_KEY}
+    expiration: ${EXPIRATION}
+    accessExpiration: ${ACCESS_TOKEN_EXPIRATION}
+    refreshExpiration: ${REFRESH_TOKEN_EXPIRATION}
+    issuer: ${JWT_ISSUER}
+    signingPrivateKey: ${JWT_SIGNING_PRIVATE_KEY}
+    signingPublicKey: ${JWT_SIGNING_PUBLIC_KEY}
+    encryptionPrivateKey: ${ENCRYPTION_PRIVATE_KEY}
+    encryptionPublicKey: ${ENCRYPTION_PUBLIC_KEY}
+
+  data:
+    redis:
+      url: ${REDIS_URL}
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      username: ${REDIS_USERNAME}
+      password: ${REDIS_PASSWORD}
+      timeout: 5s
+
+
+  cache:
+    type: redis
+server:
+  port: 8080
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          config:
+            annotation:
+              authentication:
+                configuration:
+                  InitializeUserDetailsBeanManagerConfigurer: ERROR
+          # beans:
+          #   # factory:
+          #   #   support: TRACE
+          web:
+            socket:
+              messaging: TRACE
+          messaging:
+            simp:
+              annotation:
+                support: TRACE
+        hibernate:
+          orm:
+            jdbc:
+              bind: TRACE
+
+jobrunr:
+  background-job-server:
+    enabled: true
+  dashboard:
+    enabled: false
+    # port: 8081
+  jobs:
+    default-number-of-retries: 3
+  job-scheduler:
+    enabled: true
+
+notification:
+  termii-base-url: ${TERMII_BASE_URL}
+  termii-api-key: ${TERMII_API_KEY}
+  termii-sender-id: ${TERMII_SENDER_ID}
+
+  brevo-api-key: ${BREVO_API_KEY}
+  brevo-url: ${BREVO_URL}
+  project-name: ${PROJECT_NAME}
+  unique-name: ${UNIQUE_NAME}
+  email-host: smtp.gmail.com
+  email-port: ${EMAIL_PORT:587}
+  email-username: ${EMAIL_USERNAME}
+  email-password: ${EMAIL_PASSWORD}
+  email-use-tls: true
+
+  frontend-url: ${FRONTEND_URL}
+  send-champ-base-url: ${SEND_CHAMP_URL}
+  send-champ-api-key: ${SEND_CHAMP_API_KEY}
+  send-champ-sender-id: ${SEND_CHAMP_SENDER_ID}
+kyc-verification:
+  dojah:
+    base-url: ${DOJAH_BASE_URL}
+    secret-key: ${DOJAH_SECRET_KEY}
+    app-Id: ${DOJAH_APP_ID}
+auth:
+  redis-url: ${REDIS_URL}
+  reset-password-salt: ${RESET_PASSWORD_SALT}
+  reset-secret-key: ${RESET_SECRET_KEY}
+  verify-email-salt: ${VERIFY_EMAIL_SALT}
+  verify-email-secret-key: ${VERIFY_EMAIL_SECRET_KEY}
+cloudinary:
+  cloud-name: ${CLOUDINARY_CLOUD_NAME}
+  api-secret: ${CLOUDINARY_SECRET_KEY}
+  api-key: ${CLOUDINARY_API_KEY}
+  signature-version: ${CLOUDINARY_SIGNATURE_VERSION:1}
+
+
+
+pingers:
+  ping-urls: ${URLS}
+cors:
+  allowed-origins: ${ALLOWED_URLS}
+  allowed-email-domains: ${ALLOWED_EMAIL_DOMAINS}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    csrf:
+      enabled: ${SWAGGER_ENABLED:false}
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+    persist-authorization: true
+    enabled: ${SWAGGER_ENABLED:false}
+
+
+  group-configs:
+    - group: public
+      paths-to-match:
+        - /api/v1/**
+      paths-to-exclude:
+        - /api/v1/admin/**
+        - /api/v1/cloudinary/**
+        - /error
+        - /actuator/**
+
+    - group: admin
+      paths-to-match:
+        - /api/v1/admin/**
+        - /api/v1/cloudinary/**
+  show-actuator: false
+
+  cache:
+    disabled: true
+  app:
+    name: Spring Boot API
+    version: 1.0.0
+    description: API documentation for Spring Boot application
+debug: false
+app:
+  security:
+    enable-sms-token: ${ENABLE_SMS_TOKEN:false}
+    enable-webauthn: ${ENABLE_WEBAUTHN:false}
+    enable-OAuth2: ${ENABLE_OAUTH2:false}
+    enable-cors: ${ENABLE_CORS:true}
+    enable-csrf: ${ENABLE_CSRF:false}
+    enable-httpOnly: ${ENABLE_HTTPONLY:true}
+    enable-httpSecure: ${ENABLE_HTTP_SECURE:false}
+    use-simple-broker: ${USE_SIMPLE_BROKER:false}
+    request-register-code-admins: ${REQUEST_REGISTER_CODE_FOR_ADMINS:true}
+  storage:
+    pdf-dir: ${user.home}/app-storage/documents
+  application:
+    author: ${AUTHOR}
+    author-email: ${AUTHOR_EMAIL}
+    author-url: ${AUTHOR_URL}
+  webauthn:
+    rp-id: ${WEBAUTHN_RP_ID}
+    rp-name: ${WEBAUTHN_RP_NAME}
+    webauthn-allowed-origins: ${WEBAUTHN_ALLOWED_ORIGINS}
+  encryption:
+    aes-algorithm: ${AES_ALGORITHM}
+    rsa-algorithm: ${RSA_ALGORITHM}
+    server-key-hex: ${SERVER_KEY_HEX}
+    iv-length: ${IV_LENGTH}
+    gcm-tag-length: ${GCM_TAG_LENGTH}
+    server-secret: ${SERVER_SECRET}
+    production-mode: ${PRODUCTION_MODE:false}
+  terminal:
+    zone: ${TERMINAL_TIMEZONE:Africa/Lagos}
+  stomp:
+    relay-port: ${RABBITMQ_STOMP_PORT:61613}
+  swagger:
+    username: ${SWAGGER_USERNAME}
+    password: ${SWAGGER_PASSWORD}
+    role: ${SWAGGER_ROLE}
+  oauth2:
+    authorized-redirect-uri: ${OAUTH2_AUTHORIZED_REDIRECT_URI}
+    failure-redirect-uri: ${OAUTH2_FAILURE_REDIRECT_URI}
+docker:
+  rabbitmq:
+    docker-enabled: ${DOCKER_ENABLED:false}
+    virtual-host: ${DOCKER_RABBITMQ_VIRTUAL_HOST}
+    addresses: ${DOCKER_RABBITMQ_ADDRESS}
+    host: ${DOCKER_RABBITMQ_HOST}
+    port: ${DOCKER_RABBITMQ_PORT}
+    username: ${DOCKER_RABBITMQ_USERNAME}
+    password: ${DOCKER_RABBITMQ_PASSWORD}
+payment:
+  paystack-secret-key: ${PAYSTACK_SECRET_KEY}
+  paystack-base-url: ${PAYSTACK_BASE_URL}
+  flutterwave-secret-key: ${FLUTTERWAVE_SECRET_KEY}
+  flutterwave-base-url: ${FLUTTERWAVE_BASE_URL}
+  flutterwave-secret-hash: ${FLUTTERWAVE_SECRET_HASH}
+  monnify-secret-key: ${MONNIFY_SECRET_KEY}
+  monnify-api-key: ${MONNIFY_API_KEY}
+  monnify-base-url: ${MONNIFY_BASE_URL}
+  monnify-contract-code: ${MONNIFY_CONTRACT_CODE}
+  stripe-secret-key: ${STRIPE_SECRET_KEY}
+  stripe-webhook-secret-key: ${STRIPE_WEBHOOK_SECRET_KEY}
+  callback-url: ${FRONTEND_URL}

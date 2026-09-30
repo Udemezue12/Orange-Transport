@@ -1,0 +1,2 @@
+ALTER table ticket_pdfs
+   ADD COLUMN created BOOLEAN NOT NULL  DEFAULT FALSE;

@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap');
+
+:root {
+    --paper: #EEF1F4;
+    --ink: #17233B;
+    --ink-soft: #57647A;
+    --accent: #1F7A5C;
+    --line: #C7CCD3;
+    --stub: #E3E8E4;
+    --mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 32px 16px;
+    background: #D9DEE2;
+    font-family: var(--serif);
+    color: var(--ink);
+}
+
+.sheet {
+    width: 100%;
+}
+.sheet > tr > td {
+    text-align: center;
+}
+
+/* Ticket card */
+.ticket {
+    display: inline-table;
+    width: 620px;
+    max-width: 100%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: left;
+    border-collapse: separate;
+}
+
+/* Header */
+.ticket__header {
+    background: var(--ink);
+    padding: 18px 24px;
+}
+.ticket__brand {
+    color: #F4F6F5;
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+.ticket__headernum {
+    text-align: right;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+/* Main detail column */
+.ticket__main {
+    width: 62%;
+    padding: 22px 24px;
+}
+.ticket__main table td {
+    padding: 7px 0;
+    vertical-align: baseline;
+}
+.f-label {
+    width: 42%;
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+.f-value {
+    font-family: var(--serif);
+    font-size: 14.5px;
+    color: var(--ink);
+}
+.f-mono {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.2px;
+}
+.row-rule {
+    border-top: 1px solid var(--line);
+    padding: 0 !important;
+    line-height: 0;
+    font-size: 0;
+}
+
+/* Perforated divider between main and stub */
+.ticket__divider {
+    width: 1px;
+    position: relative;
+    padding: 0;
+    border-left: 1.5px dashed var(--line);
+}
+.notch {
+    position: absolute;
+    left: -8px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #D9DEE2;
+    border: 1px solid var(--line);
+}
+.notch--top { top: -8px; }
+.notch--bottom { bottom: -8px; }
+
+/* Stub */
+.ticket__stub {
+    width: 26%;
+    background: var(--stub);
+    padding: 22px 20px;
+}
+.stub__block {
+    text-align: left;
+}
+.stub__label {
+    font-family: var(--serif);
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+}
+.stub__value {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.15;
+}
+.stub__value--amount {
+    color: var(--accent);
+    font-size: 21px;
+}
+.stub__rule {
+    border-top: 1px dashed var(--line);
+    margin: 18px 0;
+}
+
+/* Footer */
+.ticket__footer {
+    border-top: 1px dashed var(--line);
+    padding: 14px 24px;
+    font-family: var(--serif);
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+}
+
+/* Print */
+@media print {
+    body { background: #fff; padding: 0; }
+    .ticket { border-color: #999; }
+    .notch { background: #fff; }
+}
+
+/* Narrow screens */
+@media (max-width: 480px) {
+    .ticket { width: 100%; }
+    .ticket__main, .ticket__stub { display: block; width: 100%; }
+    .ticket__divider { display: none; }
+    .ticket__stub {
+        border-top: 1.5px dashed var(--line);
+    }
+}
