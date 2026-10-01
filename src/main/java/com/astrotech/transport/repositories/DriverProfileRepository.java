@@ -55,9 +55,8 @@ public interface DriverProfileRepository extends JpaRepository<DriverProfile, UU
                   AND u.role = :role
                   AND NOT EXISTS (
                       SELECT 1
-                      FROM WorkerAssignment wa
-                      WHERE wa.worker = u
-                        AND wa.assignStatus = :activeStatus
+                      FROM u.assignments wa
+                      WHERE wa.assignStatus = :activeStatus
                   )
             """)
     Slice<UnAssignedWorkerResponse> findUnassignedDrivers(
