@@ -27,8 +27,6 @@ public interface AssignedWorkerRepository extends JpaRepository<AssignedWorker, 
 
     @Modifying
     @Transactional
-    @Query("UPDATE AssignedWorker a SET a.assignStatus = :status WHERE a.serviceId = :serviceId")
+    @Query("UPDATE AssignedWorker a SET a.assignStatus = :status WHERE a.assignedServiceId = :serviceId")
     void updateAssignStatusByServiceId(@Param("serviceId") UUID serviceId, @Param("status") AssignStatus status);
-
-
 }
