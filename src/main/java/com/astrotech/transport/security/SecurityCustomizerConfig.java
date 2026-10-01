@@ -85,12 +85,15 @@ public class SecurityCustomizerConfig {
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::deny)
                 .contentSecurityPolicy(csp -> csp.policyDirectives(
                         "default-src 'self'; " +
-                                "script-src 'self'; " +
-                                "style-src 'self' 'unsafe-inline'; " +
+                                "script-src 'self' https://cdn.jsdelivr.net; " +
+                                "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " +
+                                "font-src 'self' https://cdn.jsdelivr.net; " +
                                 "img-src 'self' data: https:; " +
-                                "connect-src 'self' ws: wss:;"))
+                                "connect-src 'self' ws: wss:;"
+                ))
                 .referrerPolicy(r -> r.policy(
-                        ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN));
+                        ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
+                ));
     }
 
     public Customizer<CorsConfigurer<HttpSecurity>> getCorsCustomizer() {

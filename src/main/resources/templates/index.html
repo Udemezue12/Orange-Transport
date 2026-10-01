@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORANGE Transport | Transportation Management Platform</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --orange-primary: #FF6B00;
+            --orange-dark: #E05A00;
+            --orange-light: #FFF4EB;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .bg-orange {
+            background-color: var(--orange-primary) !important;
+        }
+
+        .text-orange {
+            color: var(--orange-primary) !important;
+        }
+
+        .btn-orange {
+            background-color: var(--orange-primary);
+            border-color: var(--orange-primary);
+            color: #fff;
+        }
+
+        .btn-orange:hover {
+            background-color: var(--orange-dark);
+            border-color: var(--orange-dark);
+            color: #fff;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #FF6B00 0%, #FF9500 100%);
+            color: white;
+            padding: 6rem 0 5rem;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background-color: var(--orange-light);
+            color: var(--orange-primary);
+            font-size: 1.75rem;
+        }
+
+        .security-card {
+            border: none;
+            border-radius: 16px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .security-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(255, 107, 0, 0.15);
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--orange-primary);
+            border-radius: 2px;
+        }
+
+        .section-title.text-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        footer {
+            background-color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" th:href="@{/}">
+            <i class="bi bi-truck fs-3 text-orange"></i>
+            <span>ORANGE <span class="text-orange">Transport</span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#security">Security</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item ms-lg-3">
+                    <a class="btn btn-orange btn-sm px-3"
+                       th:href="@{/swagger-ui/index.html?urls.primaryName=public#/}"
+                       href="/swagger-ui/index.html?urls.primaryName=public#/"
+                       target="_blank">
+                        <i class="bi bi-code-slash me-1"></i> API Docs
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1 class="display-4 fw-bold mb-3">Moving Passengers,<br>Securely &amp; Reliably</h1>
+                <p class="lead mb-4 opacity-90">
+                    ORANGE Transport is a modern transportation management platform built to manage
+                    routes, terminals, scheduled trips, vehicles, drivers, seats, bookings, payments,
+                    and the passenger journey through a secure backend system.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#services" class="btn btn-light btn-lg px-4 fw-semibold">
+                        Our Services
+                    </a>
+                    <a th:href="@{/swagger-ui/index.html?urls.primaryName=public#/}"
+                       href="/swagger-ui/index.html?urls.primaryName=public#/"
+                       class="btn btn-outline-light btn-lg px-4"
+                       target="_blank">
+                        <i class="bi bi-braces me-2"></i>View Public API
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center d-none d-lg-block">
+                <i class="bi bi-box-seam display-1 opacity-75"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section id="about" class="py-5">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <h2 class="section-title fw-bold mb-4">About ORANGE Transport</h2>
+                <p class="text-muted">
+                    <strong>ORANGE Transport</strong> is a full-featured transportation management
+                    platform I built to support the complete passenger and operational journey.
+                    The platform handles routes, terminals, scheduled trips, vehicles, drivers,
+                    seat allocation, reservations, bookings, fares, and passenger management,
+                    while also providing customer service capabilities to help passengers
+                    receive support and resolve issues throughout their journey.
+                </p>
+
+                <p class="text-muted">
+                    Built with <strong>Java and Spring Boot</strong>, the platform incorporates
+                    secure authentication and authorization, role-based access control,
+                    payment processing, booking and reservation management, driver and terminal
+                    operations, customer service, notifications, and other supporting services.
+                    Security is a major part of the system, with protections around authentication,
+                    authorization, CSRF, JWT-based access, secure payment workflows, and sensitive
+                    user operations.
+                </p>
+
+                <ul class="list-unstyled mt-4">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-orange me-2"></i> Route, terminal &amp; trip management</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-orange me-2"></i> Vehicle, driver &amp; seat management</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-orange me-2"></i> Secure booking &amp; payment workflows</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-orange me-2"></i> Customer service &amp; passenger support</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm h-100 text-center p-4">
+                            <div class="display-6 fw-bold text-orange">Java</div>
+                            <div class="text-muted small">Backend Technology</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm h-100 text-center p-4">
+                            <div class="display-6 fw-bold text-orange">Spring</div>
+                            <div class="text-muted small">Spring Boot Platform</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm h-100 text-center p-4">
+                            <div class="display-6 fw-bold text-orange">REST</div>
+                            <div class="text-muted small">API-Driven Architecture</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm h-100 text-center p-4">
+                            <div class="display-6 fw-bold text-orange">Secure</div>
+                            <div class="text-muted small">Authentication &amp; Authorization</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SERVICES ==================== -->
+<section id="services" class="py-5 bg-light">
+    <div class="container py-4">
+        <h2 class="section-title text-center fw-bold mb-5">Our Core Services</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="bi bi-signpost-2"></i>
+                    </div>
+                    <h5 class="fw-semibold">Route &amp; Trip Management</h5>
+                    <p class="text-muted small mb-0">Create and manage routes, terminals, scheduled trips, fares, and trip availability.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="bi bi-ticket-perforated"></i>
+                    </div>
+                    <h5 class="fw-semibold">Booking &amp; Reservations</h5>
+                    <p class="text-muted small mb-0">Manage passenger bookings, seat reservations, booking sessions, and trip availability.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="bi bi-bus-front"></i>
+                    </div>
+                    <h5 class="fw-semibold">Vehicles &amp; Drivers</h5>
+                    <p class="text-muted small mb-0">Manage vehicles, seat configurations, driver profiles, and trip vehicle allocations.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="bi bi-credit-card"></i>
+                    </div>
+                    <h5 class="fw-semibold">Payments &amp; Customer Service</h5>
+                    <p class="text-muted small mb-0">Support secure payment workflows, refunds, passenger support, notifications, and service operations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SECURITY ==================== -->
+<section id="security" class="py-5">
+    <div class="container py-4">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="section-title text-center fw-bold mb-3">Security at the Core</h2>
+                <p class="text-muted">
+                    Security is a core part of ORANGE Transport, with authentication,
+                    authorization, request protection, secure payment handling, and
+                    controlled access to sensitive transportation operations built into
+                    the backend.
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Physical Security -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card security-card h-100 shadow-sm p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <h5 class="fw-semibold">Application Security</h5>
+                    <ul class="text-muted small ps-3 mb-0">
+                        <li>JWT-based authentication</li>
+                        <li>Role-based access control (RBAC)</li>
+                        <li>CSRF protection</li>
+                        <li>Protected sensitive operations</li>
+                        <li>Secure authentication workflows</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Cyber & Data Security -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card security-card h-100 shadow-sm p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-hdd-network"></i>
+                    </div>
+                    <h5 class="fw-semibold">Authentication &amp; Access Control</h5>
+                    <ul class="text-muted small ps-3 mb-0">
+                        <li>Spring Security integration</li>
+                        <li>Protected API endpoints</li>
+                        <li>Role-based authorities</li>
+                        <li>Secure login and session workflows</li>
+                        <li>Passkey / WebAuthn support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Operational Security -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card security-card h-100 shadow-sm p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-clipboard-check"></i>
+                    </div>
+                    <h5 class="fw-semibold">Payments &amp; Operational Security</h5>
+                    <ul class="text-muted small ps-3 mb-0">
+                        <li>Secure payment initialization</li>
+                        <li>Idempotent payment requests</li>
+                        <li>Payment webhook handling</li>
+                        <li>Refund processing</li>
+                        <li>Controlled booking and reservation workflows</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Banner -->
+        <div class="alert alert-warning border-0 mt-5 d-flex align-items-center gap-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill fs-3 text-orange"></i>
+            <div>
+                <strong>Security by Design:</strong>
+                Authentication, authorization, CSRF protection, secure payment workflows,
+                and access-controlled operations are considered throughout the platform.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== API CTA ==================== -->
+<section class="py-5 bg-orange text-white">
+    <div class="container py-3 text-center">
+        <h2 class="fw-bold mb-3">Explore the ORANGE Transport API</h2>
+        <p class="lead mb-4 opacity-90 col-lg-8 mx-auto">
+            Explore the documented REST API powering authentication, routes, terminals,
+            trips, bookings, reservations, vehicles, fares, payments, and other
+            transportation operations.
+        </p>
+        <a th:href="@{/swagger-ui/index.html?urls.primaryName=public#/}"
+           href="/swagger-ui/index.html?urls.primaryName=public#/"
+           class="btn btn-light btn-lg px-5 fw-semibold"
+           target="_blank">
+            <i class="bi bi-box-arrow-up-right me-2"></i>
+            Open Swagger UI – Public API
+        </a>
+    </div>
+</section>
+
+<!-- ==================== CONTACT / FOOTER ==================== -->
+<footer id="contact" class="text-white pt-5 pb-4">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <h5 class="fw-bold mb-3">
+                    <i class="bi bi-truck text-orange me-2"></i>ORANGE Transport
+                </h5>
+                <p class="text-white-50 small">
+                    A Java and Spring Boot transportation management platform focused on secure,
+                    reliable and maintainable backend operations.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <h6 class="fw-semibold mb-3">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="#about" class="text-white-50 text-decoration-none">About Us</a></li>
+                    <li class="mb-2"><a href="#services" class="text-white-50 text-decoration-none">Services</a></li>
+                    <li class="mb-2"><a href="#security" class="text-white-50 text-decoration-none">Security</a></li>
+                    <li class="mb-2">
+                        <a th:href="@{/swagger-ui/index.html?urls.primaryName=public#/}"
+                           href="/swagger-ui/index.html?urls.primaryName=public#/"
+                           class="text-white-50 text-decoration-none"
+                           target="_blank">
+                            Public API Documentation
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h6 class="fw-semibold mb-3">Contact</h6>
+                <ul class="list-unstyled small text-white-50">
+                    <li class="mb-2"><i class="bi bi-code-slash me-2"></i> Java &amp; Spring Boot Backend</li>
+                    <li class="mb-2"><i class="bi bi-shield-check me-2"></i> Secure API Architecture</li>
+                    <li class="mb-2"><i class="bi bi-envelope me-2"></i> Customer Service &amp; Passenger Support</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="border-secondary my-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-white-50">
+            <div>&copy; 2026 ORANGE Transport. All rights reserved.</div>
+            <div class="mt-2 mt-md-0">
+                Built with Java, Spring Boot, security &amp; reliability in mind.
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

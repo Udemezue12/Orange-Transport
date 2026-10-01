@@ -38,21 +38,7 @@ public class RestExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .body(response);
     }
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ApiErrorResponse> handleAccessDeniedException(
-            AccessDeniedException ex
-    ) {
-        ApiErrorResponse response = ApiErrorResponseMapper.createError(
-                HttpStatus.FORBIDDEN.value(),
-                "Access Denied",
-                ex.getMessage(),
-                null
-        );
 
-        return ResponseEntity
-                .status(HttpStatus.FORBIDDEN)
-                .body(response);
-    }
 
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleUsernameNotFound(
