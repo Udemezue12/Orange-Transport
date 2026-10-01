@@ -79,8 +79,7 @@ public class ChatConversationService {
             evict = {
                     @CacheEvict(value = "conversation-lists",
                             allEntries = true
-                    ),
-                    @CacheEvict(value = "")
+                    )
             }
     )
     @RoleRequired({UserRole.ADMIN,
