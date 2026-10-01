@@ -3,9 +3,11 @@ package com.astrotech.transport.jobrunr.taskScheduler;
 import com.astrotech.transport.configProperties.PingerProperties;
 
 import com.astrotech.transport.events.*;
+import com.astrotech.transport.jobrunr.orchestration.JobRunrManagementService;
 import com.astrotech.transport.jobrunr.tasks.*;
 import com.astrotech.transport.service.BookingSessionService;
 import com.astrotech.transport.service.GenerateRegisterCodeService;
+import com.astrotech.transport.service.TerminalService;
 import lombok.RequiredArgsConstructor;
 import org.jobrunr.scheduling.JobScheduler;
 import org.jobrunr.scheduling.cron.Cron;
@@ -35,6 +37,8 @@ public class TaskScheduler {
     private final BookingSessionService bookingSessionService;
     private final CreateTransloadingTask transloadingTask;
     private final GenerateRegisterCodeService codeService;
+    private final JobRunrManagementService managementService;
+    private final TerminalService terminalService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void scheduleRecurringJobs() {
@@ -42,6 +46,33 @@ public class TaskScheduler {
                 "expire-pending-booking-sessions",
                 "*/10 * * * *",
                 bookingSessionService::expirePendingSessionsOlderThanTenMinutes
+        );
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void deleteSuccessfulJobs() {
+        jobScheduler.scheduleRecurrently(
+                "purge-successful-jobs",
+                "0 0 */6 * *",
+                managementService::purgeSucceededJobs
+        );
+        jobScheduler.scheduleRecurrently(
+                "purge-deleted-jobs",
+                "0 0 */6 * *",
+                managementService::purgeDeletedJobs);
+
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void getTerminals() {
+        jobScheduler.scheduleRecurrently(
+                "get-terminals",
+                "0 0 */4 * *",
+                () -> terminalService.getAllTerminals(
+                        0,
+                        15,
+                        "name",
+                        true)
         );
     }
 

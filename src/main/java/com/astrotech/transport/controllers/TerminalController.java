@@ -60,9 +60,10 @@ public class TerminalController {
 
     @GetMapping("/list")
     @Ratelimit
-    public ResponseEntity<ApiResponse<SliceResponse<SimpleTerminalResponse>>> getListTerminals(@RequestParam(required = false, defaultValue = "", name = "sortBy") String sortBy,
-                                                                                               @RequestParam(required = false, defaultValue = GetCalculatedPagination.DEFAULT_PAGE, name = "page") int page,
-                                                                                               @RequestParam(required = false, defaultValue = GetCalculatedPagination.DEFAULT_SIZE, name = "size") int size) {
+    public ResponseEntity<ApiResponse<SliceResponse<SimpleTerminalResponse>>> getListTerminals(
+            @RequestParam(required = false, defaultValue = "", name = "sortBy") String sortBy,
+            @RequestParam(required = false, defaultValue = GetCalculatedPagination.DEFAULT_PAGE, name = "page") int page,
+            @RequestParam(required = false, defaultValue = GetCalculatedPagination.DEFAULT_SIZE, name = "size") int size) {
         var response = terminalService.getAllTerminals(page, size, sortBy, false);
         return ApiResponseBuilder.success("Terminals fetched Successfully", response, apiCacheControl.publicMaxAgeMinutes(15));
 
@@ -71,9 +72,11 @@ public class TerminalController {
 
     @GetMapping("/{terminalId}/get")
     @Ratelimit
-    public ResponseEntity<ApiResponse<SliceResponse<TerminalRouteResponse>>> getTerminalWithRoutes(@PathVariable UUID terminalId, @RequestParam(required = false, defaultValue = "", name = "sortBy") String sortBy,
-                                                                                                   @RequestParam(required = false, defaultValue = GetCalculatedPagination.DEFAULT_PAGE, name = "page") int page,
-                                                                                                   @RequestParam(required = false, defaultValue = GetCalculatedPagination.DEFAULT_SIZE, name = "size") int size) {
+    public ResponseEntity<ApiResponse<SliceResponse<TerminalRouteResponse>>> getTerminalWithRoutes(
+            @PathVariable UUID terminalId,
+            @RequestParam(required = false, defaultValue = "", name = "sortBy") String sortBy,
+            @RequestParam(required = false, defaultValue = GetCalculatedPagination.DEFAULT_PAGE, name = "page") int page,
+            @RequestParam(required = false, defaultValue = GetCalculatedPagination.DEFAULT_SIZE, name = "size") int size) {
         var response = terminalRouteService.getTerminalRoutes(terminalId, page, size, sortBy);
         return ApiResponseBuilder.success("Terminal with Routes fetched Successfully", response, apiCacheControl.publicMaxAgeMinutes(15));
 

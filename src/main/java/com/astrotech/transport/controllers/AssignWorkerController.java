@@ -45,7 +45,7 @@ public class AssignWorkerController {
         return ApiResponseBuilder.success("Assigned Worker fetched Successfully", response, apiCacheControl.noStore());
     }
 
-    @GetMapping("/{serviceId}/trip-driver")
+    @GetMapping("/{serviceId}/trip-vehicle-loader")
     @Ratelimit
     public ResponseEntity<ApiResponse<TripAssignedWorkerResponse>> getAssignedTripLoader(@PathVariable UUID serviceId) {
         var response = assignWorkerService.getTripAssignedWorker(serviceId, AssignedServiceType.TRIP_VEHICLE_LOADER);
