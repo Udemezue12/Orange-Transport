@@ -62,7 +62,7 @@ public interface ProfileRepository extends JpaRepository<Profile, UUID> {
                     u.id,
                     u.fullName,
                     u.email,
-                    dp.id
+                    p.id
                 )
                 FROM Profile p
                 JOIN p.user u
